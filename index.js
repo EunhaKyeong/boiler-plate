@@ -4,6 +4,7 @@ const port = 5000   //port 설정
 const bodyParser = require('body-parser');
 const {User} = require('./models/User.js'); //User.js에서 modules.exports 객체들 중 User 객체만을 가져온다.
                                             //require('./models/User.js').User와 같은 의미
+const config = require('./config/key.js');
 
 //application/x-www-form-urlencoded와 같은 데이터만을 가지고 오도록 설정
 app.use(bodyParser.urlencoded({
@@ -13,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 const mongooes = require('mongoose');
-mongooes.connect('mongodb+srv://eunha:<password>@boilerplate.2gutz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongooes.connect(config.mongoURI, {
   useNewUrlParser: true, 
   useUnifiedTopology: true, 
   useCreateIndex: true, 
@@ -22,7 +23,7 @@ mongooes.connect('mongodb+srv://eunha:<password>@boilerplate.2gutz.mongodb.net/m
   .catch(err => console.log(err));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!~~안녕하세요!')
+  res.send('Hello World!~~안녕하세요! 새해 복 많이 받으세요!')
 })
 
 app.post('/register', (req, res) => {
